@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.controller;
 
+import br.com.alura.screenmatch.domain.film.DadosAlteracaoFilmes;
 import br.com.alura.screenmatch.domain.film.DadosCadastroFilmes;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,6 +48,13 @@ public class Filme {
     public String toString() {
         return "Filme [nome=" + nome + ", duracaoEmMinutos=" + duracaoEmMinutos + ", anoLancamento=" + anoLancamento
                 + ", genero=" + genero + "]";
+    }
+
+    public void atualizaDados(DadosAlteracaoFilmes dados) {
+        this.nome = dados.nome();
+        this.duracaoEmMinutos = dados.duracao();
+        this.anoLancamento = dados.ano();
+        this.genero = dados.genero();
     }
 
     
