@@ -1,8 +1,6 @@
 package br.com.alura.screenmatch.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +13,12 @@ import br.com.alura.screenmatch.domain.film.DadosCadastroFilmes;
 @RequestMapping("/filmes")
 public class FilmeController {
 
-    private List<Filme> listaDeFilmes = new ArrayList<>(); 
+    @Autowired
+    private FilmeRepository repository; 
     
     @GetMapping
     public String carregaPaginaListagem(Model model) {
-        model.addAttribute("lista", listaDeFilmes);
+        model.addAttribute("lista", repository.findAll());
         return "filmes/lista";
     }
 
@@ -32,7 +31,7 @@ public class FilmeController {
     public String cadastraFilme(DadosCadastroFilmes dados, Model model) {
         
         Filme filme = new Filme(dados);
-        listaDeFilmes.add(filme);
+        repository.save(filme);
 
         return "redirect:/filmes";
     }
